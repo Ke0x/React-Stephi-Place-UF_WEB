@@ -28,7 +28,7 @@ export default class App extends React.Component {
   }
 
   getList = () => {
-    fetch('/api/getList')
+    fetch('/api/user')
     .then(res => res.json())
     .then(list => this.setState({ list }))
   }
@@ -43,7 +43,7 @@ render (){
             {list.map((item) => {
               return(
                 <div>
-                  {item}
+                  {item.name}
                 </div>
               );
             })}
