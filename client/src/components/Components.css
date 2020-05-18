@@ -1,0 +1,122 @@
+.divlogo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+}
+
+.divlogo:hover {
+    cursor: pointer;
+}
+
+.divlogo:hover .bottomIndicator {
+    background-color: bisque;
+}
+
+.navButton {
+    display: flex;
+    align-self: flex-end;
+    position: absolute;
+    left: 0; 
+    right: 0; 
+    margin-left: auto; 
+    margin-right: auto; 
+    width: 250px; /* Need a specific value to work */
+    align-items: center;
+    align-content: center;
+    justify-content: space-evenly;
+}
+
+.bottomIndicator {
+    display: flex;
+    height: 2px;
+    width: 100%;
+    background-color: transparent;
+}
+
+.navbar {
+    height: 60px;
+    margin: 0;
+    padding: 0;
+}
+
+.searchbar {
+    background-color: #20232A;
+    color: white;
+    width: 90vh;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
+    border-width: 2px;
+    border-radius: 10px;
+
+}
+
+.content {
+    display: flex;
+    align-items: center;
+}
+
+.content h3{
+    padding: 20px;
+}
+
+.buttonchoice {
+    padding-right: 20px;
+}
+
+.center_element {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40vh;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+
+#dropdown-basic {
+    margin-right: 20px;
+}
+
+.value_content{
+    display: inline-flex;
+}
+
+#plus{
+    display: none;
+}
+
+.nb_piece {
+    display: flex;
+}
+
+a:hover {
+    color: white; 
+    text-decoration: none;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+.searchbutton { 
+    display: inline-flex;
+    align-items: center;
+    align-items: center;
+    padding-top: 5vh;
+
+}
+
+.card-box {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 40vh 40vh 40vh; 
+    grid-gap: 10px;
+    padding: 10px;
+  }
+.card-box .card{
+    background-color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  padding: 20px 0;
+
+}
