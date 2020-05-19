@@ -19,7 +19,8 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state= {
-      list: []
+      list: [],
+      status: "logout"
     }
   }
 
@@ -38,16 +39,7 @@ render (){
   return (
     <Router>
       <Navbars />
-      <div>
-            {/* Render the list of items */}
-            {list.map((item) => {
-              return(
-                <div>
-                  {item.name}
-                </div>
-              );
-            })}
-          </div>
+        <h1>{this.state.status}</h1>
       <Switch>
           <Redirect exact from="/" to="home" />
           <Route exact path="/home">
@@ -57,12 +49,9 @@ render (){
             <Favoris />
           </Route>
           <Route path="/compte">
-            <Compte />
+            <Compte screenProps={{ isLoggedIn: () => this.setState({ status: 'loggedIn' }) }} Status={this.state.status} />
           </Route>
         </Switch>
-
-        
-
     </Router>
   );
 }

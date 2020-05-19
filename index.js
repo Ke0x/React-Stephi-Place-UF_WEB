@@ -18,18 +18,22 @@ db.connect();
 // Serve the static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));
 
-// An api endpoint that returns a short list of items
-app.get('/api/getList', (req,res) => {
-    var list = ["item1", "item2", "item3"];
-    res.json(list);
-    console.log('Sent list of items');
-});
+app.get('/api/login', (req, res) => {
+    const { email, password } = req.query;
+    const QUERY_LOGIN = `SELECT * FROM user WHERE email = '${email}' AND password = '${password}'`
+    db.query(QUERY_LOGIN, (err, result) => {
+        if (err) {
+            return res.send(err)
+        } else {
+            return res.json(result)
+        }
+    })
+})
 
 app.get('/api/user', async (req,res) => {
     var sql = 'SELECT * FROM user';
     db.query(sql, (err, result)=>{
     if(err) throw err;
-    console.log(result);
     res.json(result);
 });
 });
