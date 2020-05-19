@@ -129,3 +129,24 @@ a {
     flex-direction: column;
 
 }
+
+.modalCreate {
+    position: absolute;
+    display: flex;
+    height: 700px;
+    width: 500px;
+    background-color: thistle;
+    top:0;
+    bottom:0;
+    margin-top:auto;
+    margin-bottom:auto;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.closeModal {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}

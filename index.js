@@ -30,6 +30,18 @@ app.get('/api/login', (req, res) => {
     })
 })
 
+app.get('/api/createacc', (req, res) => {
+    const { name, lastname, email, password, type, dateN } = req.query;
+    const QUERY_CREATEACC = `INSERT INTO user (name, lastname, email, password, type, dateN) VALUES('${name}', '${lastname}', '${email}', '${password}', '${type}', '${dateN}')`
+    db.query(QUERY_CREATEACC, (err, result) => {
+        if (err) {
+            return res.send(err)
+        } else {
+            return res.json(result)
+        }
+    })
+})
+
 app.get('/api/user', async (req,res) => {
     var sql = 'SELECT * FROM user';
     db.query(sql, (err, result)=>{
