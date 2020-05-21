@@ -123,7 +123,7 @@ a {
 
 .divLogin {
     display: flex;
-    background-color: tomato;
+    background-color: rgb(91, 102, 206);
     justify-content: center;
     align-items: center;
     flex-direction: column;
@@ -149,4 +149,17 @@ a {
     position: absolute;
     bottom: 10px;
     right: 10px;
+}
+
+.msgConnect {
+    font-size: 20px;
+    color: white;
+}
+.msgConnect a{
+    color: rgb(255, 0, 0);
+}
+
+.msgConnect a:hover{
+    color: rgba(255, 0, 0, 0.329);
+    cursor: pointer;
 }

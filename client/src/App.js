@@ -10,7 +10,6 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
   Redirect
 } from "react-router-dom";
 
@@ -19,37 +18,50 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state= {
-      list: [],
-      status: "logout"
+      agence: [],
+      status: "logout",
+      userData: null,
+      id: 1
     }
   }
 
   componentDidMount() {
-    this.getList();
+    this.getAgence();
   }
 
-  getList = () => {
-    fetch('/api/user')
+  getAgence = () => {
+    fetch('/api/agence')
     .then(res => res.json())
-    .then(list => this.setState({ list }))
+    .then(list => this.setState({ agence: list, id: list[0].idagence }))
+  }
+
+  idChange = (id) => {
+    this.setState({
+      id: id.target.value
+    });
+    console.log(id.target.value)
   }
 
 render (){
-  const { list } = this.state;
+  const { userData, agence, value } = this.state;
   return (
     <Router>
       <Navbars />
-        <h1>{this.state.status}</h1>
+      <select id="agence" onChange={this.idChange} value={value}>
+        {agence.map(agc =>
+          <option key={agc.idagence} value={agc.idagence}>{agc.nom}</option>
+        )};
+      </select>
       <Switch>
           <Redirect exact from="/" to="home" />
           <Route exact path="/home">
-            <Home />
+            <Home key={this.state.id} agence={this.state.id} />
           </Route>
           <Route exact path="/favoris">
-            <Favoris />
+            <Favoris Status={this.state.status}/>
           </Route>
           <Route path="/compte">
-            <Compte screenProps={{ isLoggedIn: () => this.setState({ status: 'loggedIn' }) }} Status={this.state.status} />
+            <Compte screenProps={{ isLoggedIn: (data) => this.setState({ status: 'loggedIn', userData: data }) }} Status={this.state.status} />
           </Route>
         </Switch>
     </Router>

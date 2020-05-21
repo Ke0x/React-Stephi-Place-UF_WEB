@@ -42,13 +42,28 @@ app.get('/api/createacc', (req, res) => {
     })
 })
 
-app.get('/api/user', async (req,res) => {
-    var sql = 'SELECT * FROM user';
-    db.query(sql, (err, result)=>{
-    if(err) throw err;
-    res.json(result);
-});
-});
+app.get('/api/agence', (req, res) => {
+    const QUERY_AGENCE = `SELECT * FROM agence`
+    db.query(QUERY_AGENCE, (err, result) => {
+        if (err) {
+            return res.send(err)
+        } else {
+            return res.json(result)
+        }
+    })
+})
+
+app.get('/api/annonces', (req, res) => {
+    const { id } = req.query;
+    const QUERY_ANNONCES = `SELECT * FROM annonces WHERE idagence = '${id}'`
+    db.query(QUERY_ANNONCES, (err, result) => {
+        if (err) {
+            return res.send(err)
+        } else {
+            return res.json(result)
+        }
+    })
+})
 
 // Handles any requests that don't match the ones above
 app.get('*', (req,res) =>{

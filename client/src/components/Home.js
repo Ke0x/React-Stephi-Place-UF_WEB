@@ -13,7 +13,13 @@ export default class Home extends React.Component {
     super(props);
     this.state= {
       value: 0,
+      annonces: []
     }
+  }
+
+  componentDidMount() {
+    this.getAnnonce();
+    console.log(this.props.agence)
   }
 
   onSliderChange = value => {
@@ -34,10 +40,21 @@ export default class Home extends React.Component {
     }
   };
 
-  
-  
+  getAnnonce = () => {
+    fetch(`/api/annonces?id=${this.props.agence}`)
+    .then(res => res.json())
+    .then(list => {
+      console.log(list)
+      if (list.length > 0) {
+        this.setState({ annonces: list })
+      } else {
+        alert("Erreur de login")
+      }
+    })
+  }
 
 render (){
+  const { annonces } = this.state;
   return (
   <>
   <div className="center_element">
@@ -77,8 +94,8 @@ render (){
         />
               <div className="searchbutton">
 <Button>Rechercher</Button>
-</div>
-        </div>
+      </div>
+      </div>
       </div>
 
 
@@ -128,9 +145,11 @@ render (){
 </div>
 </div>
 
-<div>
-<Annonce />
-</div>
+  <div key={this.state.annonces} className="card-box">
+    {annonces.map(anc =>
+      <Annonce key={anc.idannonce} id={anc.idannonce} ville={anc.ville}/>
+     )}
+  </div>
 </>
   );
 }

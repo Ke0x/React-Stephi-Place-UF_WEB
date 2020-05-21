@@ -14,7 +14,8 @@ export default class Compte extends React.Component {
       loginpassword: '',
       loginlastname: '',
       loginemail: '',
-      logindaten: ''
+      logindaten: '',
+      userData: null
     }
   }
 
@@ -71,10 +72,12 @@ export default class Compte extends React.Component {
     fetch(`/api/login?email=${this.state.email}&password=${this.state.password}`)
     .then(res => res.json())
     .then(list => {
+      console.log(list)
       if (list.length > 0) {
-        this.props.screenProps.isLoggedIn()
+        this.props.screenProps.isLoggedIn(list[0])
         this.setState({
-          status: "loggedIn"
+          status: "loggedIn",
+          userData: list[0]
         })
       } else {
         alert("Erreur de login")
@@ -101,7 +104,7 @@ export default class Compte extends React.Component {
   }
 
 render (){
-  if (this.state.status == "logout" || this.state.status == "Erreur de login") {
+  if (this.state.status === "logout" || this.state.status === "Erreur de login") {
     return(
     <div className="divLogin">
       <h1>Logged out</h1>
@@ -137,7 +140,7 @@ render (){
       
     </div>
     )
-  } else if (this.state.status == "loggedIn") {
+  } else if (this.state.status === "loggedIn") {
     return (
       <div>
           <h1>Logged in</h1>

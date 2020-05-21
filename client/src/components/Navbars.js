@@ -5,7 +5,6 @@ import { Navbar } from 'react-bootstrap';
 
 import logo from './svg/logo.svg';
 import heart from './svg/heart.svg';
-import message from './svg/message.svg'
 import user from './svg/user.svg'
 
 import {
