@@ -163,3 +163,7 @@ a {
     color: rgba(255, 0, 0, 0.329);
     cursor: pointer;
 }
+
+.descriptionA {
+    color: white
+}

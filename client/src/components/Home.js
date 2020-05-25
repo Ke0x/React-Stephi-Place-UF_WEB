@@ -48,7 +48,7 @@ export default class Home extends React.Component {
       if (list.length > 0) {
         this.setState({ annonces: list })
       } else {
-        alert("Erreur de login")
+        alert("Erreur")
       }
     })
   }
@@ -57,6 +57,7 @@ render (){
   const { annonces } = this.state;
   return (
   <>
+  <div>
   <div className="center_element">
   <div className="searchbar"> 
   <div className="content">
@@ -147,8 +148,9 @@ render (){
 
   <div key={this.state.annonces} className="card-box">
     {annonces.map(anc =>
-      <Annonce key={anc.idannonce} id={anc.idannonce} ville={anc.ville}/>
+      <Annonce key={anc.idannonce} id={anc.idannonce} ville={anc.ville} data={anc}/>
      )}
+  </div>
   </div>
 </>
   );

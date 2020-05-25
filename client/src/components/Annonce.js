@@ -1,6 +1,6 @@
 import React from 'react';
 import '../components/Components.css';
-import {Button, Card,} from 'react-bootstrap';
+import {Button, Card} from 'react-bootstrap';
 
 
 export default class Annonce extends React.Component {
@@ -21,7 +21,7 @@ render (){
         <Card.Text>
         {this.props.ville}
         </Card.Text>
-        <Button variant="primary">Go somewhere</Button>
+        <Button variant="primary" href={'/annonce/' + this.props.id}>Go somewhere</Button>
         </Card.Body>
     </Card>
   );
