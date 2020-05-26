@@ -15,7 +15,24 @@ export default class Compte extends React.Component {
       loginlastname: '',
       loginemail: '',
       logindaten: '',
-      userData: null
+      userData: null,
+      nameM: '',
+      passwordM: '',
+      lastnameM: '',
+      emailM: '',
+      annonces: []
+    }
+  }
+
+  componentDidMount() {
+    if(this.props.userData) {
+      this.setState({
+        nameM: this.props.userData.name,
+        lastnameM: this.props.userData.lastname,
+        emailM: this.props.userData.email,
+        passwordM: this.props.userData.password
+      })
+      this.getUserAnnonce();
     }
   }
 
@@ -68,6 +85,34 @@ export default class Compte extends React.Component {
     console.log(logindaten.target.value)
   }
 
+  updateEmailModif = (emailM) => {
+    this.setState({
+      emailM: emailM.target.value
+    });
+    console.log(emailM.target.value)
+  }
+
+  updateNameModif = (nameM) => {
+    this.setState({
+      nameM: nameM.target.value
+    });
+    console.log(nameM.target.value)
+  }
+
+  updateLastnameModif = (lastnameM) => {
+    this.setState({
+      lastnameM: lastnameM.target.value
+    });
+    console.log(lastnameM.target.value)
+  }
+
+  updatePasswordModif = (passwordM) => {
+    this.setState({
+      passwordM: passwordM.target.value
+    });
+    console.log(passwordM.target.value)
+  }
+
   Connect = () => {
     fetch(`/api/login?email=${this.state.email}&password=${this.state.password}`)
     .then(res => res.json())
@@ -77,8 +122,13 @@ export default class Compte extends React.Component {
         this.props.screenProps.isLoggedIn(list[0])
         this.setState({
           status: "loggedIn",
-          userData: list[0]
+          userData: list[0],
+          nameM: list[0].name,
+          lastnameM: list[0].lastname,
+          emailM: list[0].email,
+          passwordM: list[0].password
         })
+        this.getUserAnnonce(list[0].iduser)
       } else {
         alert("Erreur de login")
       }
@@ -92,7 +142,20 @@ export default class Compte extends React.Component {
       if (compte.affectedRows > 0) {
         console.log(compte)
       } else {
-        alert("Erreur de login")
+        alert("Erreur")
+      }
+    })
+  }
+
+  saveProfil = () => {
+    fetch(`/api/updateprofil?name=${this.state.nameM}&lastname=${this.state.lastnameM}&email=${this.state.emailM}&password=${this.state.passwordM}&id=${this.state.userData.iduser}`)
+    .then(res => res.json())
+    .then(compte => {
+      if (compte.affectedRows > 0) {
+        console.log(compte)
+        alert("Modifications enregistrées")
+      } else {
+        alert("Erreur")
       }
     })
   }
@@ -103,7 +166,21 @@ export default class Compte extends React.Component {
     })
   }
 
+  getUserAnnonce = (id) => {
+    fetch(`/api/userannonces?id=${id}`)
+    .then(res => res.json())
+    .then(list => {
+      console.log(list)
+      if (list.length > 0) {
+        this.setState({ annonces: list })
+      } else {
+        console.log("Aucune annonce")
+      }
+    })
+  }
+
 render (){
+  const { annonces } = this.state
   if (this.state.status === "logout" || this.state.status === "Erreur de login") {
     return(
     <div className="divLogin">
@@ -142,9 +219,26 @@ render (){
     )
   } else if (this.state.status === "loggedIn") {
     return (
-      <div>
-          <h1>Logged in</h1>
+      <>
+      <div className='inputControl'>
+        <input type="text" className="form-control textCompte" placeholder="Prénom" value={this.state.nameM} onChange={this.updateNameModif}></input>
+        <input type="text" className="form-control textCompte" placeholder="Nom" value={this.state.lastnameM} onChange={this.updateLastnameModif}></input>
+        <input type="text" className="form-control textCompte" placeholder="Email" value={this.state.emailM} onChange={this.updateEmailModif}></input>
+        <input type="password" className="form-control textCompte" placeholder="Mot de passe" value={this.state.passwordM} onChange={this.updatePassword}></input>
+        <button type="button" className="btn btn-primary" onClick={this.saveProfil}>Enregistrer</button>
       </div>
+      <div className="annonceContainer">
+        <span className="textAnnonce">Mes annonces</span>
+        <div className="annonceContain">
+          <ul className="list-group">
+            {annonces.map(anc =>
+              <li key={anc.idannonce} className="list-group-item">{anc.adresse}</li>
+            )}
+          </ul>
+        </div>
+        <button type="button" className="btn btn-primary btnAdd" onClick={null}>Ajouter une annonce</button>
+      </div>
+      </>
     );
   } 
 

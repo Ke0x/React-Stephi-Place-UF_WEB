@@ -167,3 +167,51 @@ a {
 .descriptionA {
     color: white
 }
+
+.textCompte {
+    width: 200px;
+    margin: 20px
+}
+
+.inputControl {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.annonceContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.annonceContain {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    width: 1200px;
+    min-height: 200px;
+    background-color: rgb(54, 59, 61);
+    border-radius: 20px;
+}
+
+.list-group-item {
+    width: 1160px;
+}
+
+.list-group-item:hover {
+    background-color: #6f8594;
+    cursor: pointer;
+}
+
+.textAnnonce {
+    font-size: 41px;
+    font-weight: 700;
+    color: #6f8594;
+}
+
+.btnAdd {
+    margin: 20px;
+}

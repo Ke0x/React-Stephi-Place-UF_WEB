@@ -68,10 +68,22 @@ app.get('/api/annonces', (req, res) => {
     })
 })
 
+app.get('/api/userannonces', (req, res) => {
+    const { id } = req.query;
+    const QUERY_USERANNONCES = `SELECT * FROM annonces WHERE iduser = '${id}'`
+    db.query(QUERY_USERANNONCES, (err, result) => {
+        if (err) {
+            return res.send(err)
+        } else {
+            return res.json(result)
+        }
+    })
+})
+
 app.get('/api/annonce', (req, res) => {
     const { id } = req.query;
-    const QUERY_ANNONCES = `SELECT * FROM annonces WHERE idannonce = '${id}'`
-    db.query(QUERY_ANNONCES, (err, result) => {
+    const QUERY_ANNONCE = `SELECT * FROM annonces WHERE idannonce = '${id}'`
+    db.query(QUERY_ANNONCE, (err, result) => {
         if (err) {
             return res.send(err)
         } else {
@@ -114,6 +126,19 @@ app.get('/api/annonceimg', (req, res) => {
     const QUERY_ANNONCEIMG = `SELECT * FROM photos WHERE idannonce = '${id}'`
     db.query(QUERY_ANNONCEIMG, (err, result) => {
         if (err) {
+            return res.send(err)
+        } else {
+            return res.json(result)
+        }
+    })
+})
+
+app.get('/api/updateprofil', (req, res) => {
+    const { id, name, lastname, email, password  } = req.query;
+    const QUERY_UPDATEPROFILE = `UPDATE user set name = '${name}', lastname = '${lastname}', email = '${email}', password = '${password}' WHERE iduser = '${id}'`
+    db.query(QUERY_UPDATEPROFILE, (err, result) => {
+        if (err) {
+            console.log(err)
             return res.send(err)
         } else {
             return res.json(result)
