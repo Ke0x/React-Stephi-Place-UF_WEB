@@ -146,6 +146,19 @@ app.get('/api/updateprofil', (req, res) => {
     })
 })
 
+app.get('/api/updateannonce', (req, res) => {
+    const { id, ville, adresse, pieces, prix, description, superficie, codepostal } = req.query;
+    const QUERY_UPDATEANNONCE = `UPDATE annonces set ville = '${ville}', adresse = '${adresse}', pieces = '${pieces}', prix = '${prix}', description = "${description}", superficie = '${superficie}', codepostal = '${codepostal}' WHERE idannonce = '${id}'`
+    db.query(QUERY_UPDATEANNONCE, (err, result) => {
+        if (err) {
+            console.log(err)
+            return res.send(err)
+        } else {
+            return res.json(result)
+        }
+    })
+})
+
 // Handles any requests that don't match the ones above
 app.get('*', (req,res) =>{
     res.sendFile(path.join(__dirname+'/client/build/index.html'));

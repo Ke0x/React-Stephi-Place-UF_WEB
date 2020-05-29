@@ -215,3 +215,8 @@ a {
 .btnAdd {
     margin: 20px;
 }
+
+.img {
+    height: 400px;
+    width: 400px;
+}

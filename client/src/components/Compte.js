@@ -32,7 +32,7 @@ export default class Compte extends React.Component {
         emailM: this.props.userData.email,
         passwordM: this.props.userData.password
       })
-      this.getUserAnnonce();
+      this.getUserAnnonce(this.props.userData.iduser);
     }
   }
 
@@ -141,6 +141,7 @@ export default class Compte extends React.Component {
     .then(compte => {
       if (compte.affectedRows > 0) {
         console.log(compte)
+        this.CloseModal()
       } else {
         alert("Erreur")
       }
@@ -177,6 +178,10 @@ export default class Compte extends React.Component {
         console.log("Aucune annonce")
       }
     })
+  }
+
+  clickAnnonce = (id) => {
+    console.log(id)
   }
 
 render (){
@@ -230,9 +235,9 @@ render (){
       <div className="annonceContainer">
         <span className="textAnnonce">Mes annonces</span>
         <div className="annonceContain">
-          <ul className="list-group">
+          <ul key={this.state.annonces} className="list-group">
             {annonces.map(anc =>
-              <li onClick={null} key={anc.idannonce} className="list-group-item">{anc.adresse}</li>
+              <li key={anc.idannonce} className="list-group-item">{anc.adresse} <a href={'/userannonce/' + anc.idannonce + '/' + this.state.userData.iduser} >Modifier</a></li>
             )}
             {
               !annonces && (

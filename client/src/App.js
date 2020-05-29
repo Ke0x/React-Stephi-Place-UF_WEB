@@ -6,6 +6,7 @@ import Navbars from './components/Navbars';
 import Favoris from './components/Favoris';
 import Compte from './components/Compte';
 import InfoAnnonce  from './components/InfoAnnonce'
+import UserAnnonce  from './components/UserAnnonce'
 
 import {
   BrowserRouter as Router,
@@ -65,11 +66,17 @@ render (){
             <Compte userData={this.state.userData} screenProps={{ isLoggedIn: (data) => this.setState({ status: 'loggedIn', userData: data }) }} Status={this.state.status} />
           </Route>
           <Route exact path='/annonce/:id' render={(matchProps) =>
-      <InfoAnnonce
-        {...matchProps}
-        {...this.props}
-      />
-}/>
+            <InfoAnnonce
+              {...matchProps}
+              {...this.props}
+            />
+          }/>
+          <Route exact path='/userannonce/:userid/:id' render={(matchProps) =>
+            <UserAnnonce
+              {...matchProps}
+              {...this.props}
+            />
+          }/>
         </Switch>
     </Router>
   );
