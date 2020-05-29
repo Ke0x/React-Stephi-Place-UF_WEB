@@ -232,8 +232,13 @@ render (){
         <div className="annonceContain">
           <ul className="list-group">
             {annonces.map(anc =>
-              <li key={anc.idannonce} className="list-group-item">{anc.adresse}</li>
+              <li onClick={null} key={anc.idannonce} className="list-group-item">{anc.adresse}</li>
             )}
+            {
+              !annonces && (
+                <span>Aucune annonce</span>
+              )
+            }
           </ul>
         </div>
         <button type="button" className="btn btn-primary btnAdd" onClick={null}>Ajouter une annonce</button>
