@@ -146,7 +146,7 @@ render (){
 </div>
 </div>
 
-  <div key={this.state.annonces} className="card-box">
+  <div key={this.state.annonces} className="homeannoncecontainer">
     {annonces.map(anc =>
       <Annonce key={anc.idannonce} id={anc.idannonce} ville={anc.ville} data={anc}/>
      )}

@@ -97,25 +97,6 @@ export default class InfoAnnonce extends React.Component {
       const { annonce } = this.state
     return(
     <>
-        <form onSubmit={this.onSubmit}>
-        <div className='custom-file mb-4'>
-          <input
-            type='file'
-            className='custom-file-input'
-            id='customFile'
-            onChange={this.onChange}
-          />
-          <label className='custom-file-label' htmlFor='customFile'>
-            {this.state.filename}
-          </label>
-        </div>
-
-        <input
-          type='submit'
-          value='Upload'
-          className='btn btn-primary btn-block mt-4'
-        />
-        </form>
     <div className="descriptionA">
         <span>{annonce && annonce.idannonce} <br/></span>
         <span>{annonce && annonce.adresse} <br/></span>
@@ -127,7 +108,7 @@ export default class InfoAnnonce extends React.Component {
         <span>{annonce && annonce.ville} <br/></span>
 
         {this.state.image.map(anc =>
-            <img key={anc.numphoto} src={anc.photo} ></img>
+            <img className="img" key={anc.numphoto} src={anc.photo} ></img>
         )}
     </div>
     </>

@@ -237,7 +237,7 @@ render (){
         <div className="annonceContain">
           <ul key={this.state.annonces} className="list-group">
             {annonces.map(anc =>
-              <li key={anc.idannonce} className="list-group-item">{anc.adresse} <a href={'/userannonce/' + anc.idannonce + '/' + this.state.userData.iduser} >Modifier</a></li>
+              <li key={anc.idannonce} className="list-group-item">{anc.adresse} <a href={'/userannonce/' + anc.idannonce + '/' + this.props.userData.iduser} >Modifier</a></li>
             )}
             {
               !annonces && (

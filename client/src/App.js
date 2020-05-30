@@ -29,6 +29,7 @@ export default class App extends React.Component {
 
   componentDidMount() {
     this.getAgence();
+    console.log(this.state.status)
   }
 
   getAgence = () => {

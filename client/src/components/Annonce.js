@@ -29,16 +29,14 @@ export default class Annonce extends React.Component {
 
 render (){
   return (
-    <Card className="Card">
-        <Card.Img variant="top" src={this.state.image && this.state.image.photo} />
-        <Card.Body>
-        <Card.Title>{this.props.id}</Card.Title>
-        <Card.Text>
-        {this.props.ville}
-        </Card.Text>
-        <Button variant="primary" href={'/annonce/' + this.props.id}>Go somewhere</Button>
-        </Card.Body>
-    </Card>
+    <Button className="annonceCard" href={'/annonce/' + this.props.id}>
+        <img className="imageCard" src={this.state.image && this.state.image.photo} />
+        <div className="cardtextcontainer">
+          <span className="cardtext">{this.props.data.description}</span>
+          <span className="cardtext">Prix: {this.props.data.prix} €</span>
+          <span className="cardtext">Ville: {this.props.data.ville}</span>
+        </div>
+    </Button>
   );
 }
 }

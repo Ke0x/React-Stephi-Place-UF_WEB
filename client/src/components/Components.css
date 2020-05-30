@@ -220,3 +220,45 @@ a {
     height: 400px;
     width: 400px;
 }
+
+.homeannoncecontainer {
+    display: flex;
+    align-self: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.annonceCard {
+    display: flex;
+    height: 200px;
+    width: 1100px;
+    background-color: #363b3d;
+    margin-bottom: 25px;
+    border-radius: 25px;
+    padding: 0px;
+    border-color: #69829c;
+}
+
+.annonceCard:hover {
+    cursor: pointer;
+}
+
+.imageCard {
+    height: auto;
+    width: 300px;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+}
+
+.cardtextcontainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.cardtext {
+    font-size: 20px;
+    padding: 10px;
+    color: white;
+    text-align: left;
+}
