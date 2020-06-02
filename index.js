@@ -159,6 +159,42 @@ app.get('/api/updateannonce', (req, res) => {
     })
 })
 
+app.get('/api/addfavoris', (req, res) => {
+    const { iduser, idannonce } = req.query;
+    const QUERY_ADDFAVORIS = `INSERT INTO favoris (iduser, idannonce) VALUES('${iduser}', '${idannonce}')`
+    db.query(QUERY_ADDFAVORIS, (err, result) => {
+        if (err) {
+            return res.send(err)
+        } else {
+            return res.json(result)
+        }
+    })
+})
+
+app.get('/api/createannonce', (req, res) => {
+    const { ville, adresse, pieces, prix, description, superficie, idagence, iduser, codepostal } = req.query;
+    const QUERY_CREATEANNONCE = `INSERT INTO annonces (ville, adresse, pieces, prix, description, superficie, idagence, iduser, state, codepostal) VALUES('${ville}', '${adresse}', '${pieces}', '${prix}', '${description}', '${superficie}', '${idagence}', '${iduser}', 'nonvendu', '${codepostal}')`
+    db.query(QUERY_CREATEANNONCE, (err, result) => {
+        if (err) {
+            return res.send(err)
+        } else {
+            return res.json(result)
+        }
+    })
+})
+
+app.get('/api/annoncessearch', (req, res) => {
+    const { id, pieces, prix } = req.query;
+    const QUERY_ANNONCES = `SELECT * FROM annonces WHERE idagence = '${id}' AND pieces >= '${pieces}' AND prix <= '${prix}'`
+    db.query(QUERY_ANNONCES, (err, result) => {
+        if (err) {
+            return res.send(err)
+        } else {
+            return res.json(result)
+        }
+    })
+})
+
 // Handles any requests that don't match the ones above
 app.get('*', (req,res) =>{
     res.sendFile(path.join(__dirname+'/client/build/index.html'));

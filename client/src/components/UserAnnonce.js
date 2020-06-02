@@ -15,11 +15,11 @@ export default class UserAnnonce extends React.Component {
       image: [],
       annonceVille: '',
       annonceAdresse: '',
-      annoncePieces: null,
-      annoncePrix: null,
+      annoncePieces: '',
+      annoncePrix: '',
       annonceDescription: '',
-      annonceSuperficie: null,
-      annonceCodePostal: null
+      annonceSuperficie: '',
+      annonceCodePostal: ''
     }
   }
 

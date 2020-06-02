@@ -12,8 +12,9 @@ export default class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state= {
-      value: 0,
-      annonces: []
+      value: 100000,
+      annonces: [],
+      nombrePieces: 1
     }
   }
 
@@ -53,6 +54,24 @@ export default class Home extends React.Component {
     })
   }
 
+  getAnnonceSearch = () => {
+    fetch(`/api/annoncessearch?id=${this.props.agence}&pieces=${this.state.nombrePieces}&prix=${this.state.value}`)
+    .then(res => res.json())
+    .then(list => {
+      console.log(list)
+      if (list.length > 0) {
+        this.setState({ annonces: list })
+      } else {
+        alert("Erreur")
+      }
+    })
+  }
+
+  handleChange= (e) => {
+    this.setState({ nombrePieces: e.target.value })
+    console.log(this.state.nombrePieces)
+  }
+
 render (){
   const { annonces } = this.state;
   return (
@@ -66,20 +85,20 @@ render (){
     <div style={{ margin: 50 }}>
     <p>Prix Maximum</p>
         <div className="value_content">
-        <NumberFormat value={this.state.value} displayType={'text'} thousandSeparator={true} />,000 
+        <span>{this.state.value}</span>
         <div id="plus">+</div> €
         </div>
 
         <div className="Slider">
         <Slider
-          min={0}
-          max={1000}
+          min={100000}
+          max={1000000}
           thousandSeparator={true}
-          step={25}
+          step={25000}
           value={this.state.value}
           onChange={this.onSliderChange}
           railStyle={{
-            height: 3
+            height: 3,
           }}
           handleStyle={{
             height: 28,
@@ -94,52 +113,27 @@ render (){
           }}
         />
               <div className="searchbutton">
-<Button>Rechercher</Button>
+<Button onClick={() => this.getAnnonceSearch()}>Rechercher</Button>
       </div>
       </div>
       </div>
 
 
     </Col>
-    
-
-    <div className="buttonchoice">
-    <ButtonGroup>
-      <Button className="active">Offres</Button>
-      <Button className="active">Demandes</Button>
-    </ButtonGroup>
-    </div>
-
-  <Dropdown>
-  <Dropdown.Toggle id="dropdown-basic">
-    Type de bien
-  </Dropdown.Toggle>
-  
-
-  <Dropdown.Menu>
-    <Dropdown.Item id="appartement">Appartement</Dropdown.Item>
-    <Dropdown.Item id="maison">Maison</Dropdown.Item>
-    <Dropdown.Item id="terrain">Terrain</Dropdown.Item>
-    <Dropdown.Item id="parking">Parking</Dropdown.Item>
-    <Dropdown.Item id="autre">Autre</Dropdown.Item>
-  </Dropdown.Menu>
-</Dropdown>
 <div className="nb_piece">
-<Dropdown>
-  <Dropdown.Toggle id="dropdown-basic">
-    Nombre de pièce
-  </Dropdown.Toggle>
+
+    <span>Nombre de pièce</span>
   
 
-  <Dropdown.Menu>
-    <Dropdown.Item id="t1">T1</Dropdown.Item>
-    <Dropdown.Item id="t2">T2</Dropdown.Item>
-    <Dropdown.Item id="t3">T3</Dropdown.Item>
-    <Dropdown.Item id="t4">T4</Dropdown.Item>
-    <Dropdown.Item id="t5">T5</Dropdown.Item>
-
-  </Dropdown.Menu>
-</Dropdown>
+  <select defaultValue={this.state.selectValue} 
+ onChange={this.handleChange} 
+ >
+    <option value={1}>1</option>
+    <option value={2}>2</option>
+    <option value={3}>3</option>
+    <option value={4}>4</option>
+    <option value={5}>5</option>
+  </select>
 
 </div>
 </div>

@@ -64,7 +64,7 @@ render (){
             <Favoris Status={this.state.status}/>
           </Route>
           <Route exact path="/compte">
-            <Compte userData={this.state.userData} screenProps={{ isLoggedIn: (data) => this.setState({ status: 'loggedIn', userData: data }) }} Status={this.state.status} />
+            <Compte agenceId={this.state.id} userData={this.state.userData} screenProps={{ isLoggedIn: (data) => this.setState({ status: 'loggedIn', userData: data }) }} Status={this.state.status} />
           </Route>
           <Route exact path='/annonce/:id' render={(matchProps) =>
             <InfoAnnonce

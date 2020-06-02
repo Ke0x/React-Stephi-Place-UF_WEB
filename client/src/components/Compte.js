@@ -20,7 +20,14 @@ export default class Compte extends React.Component {
       passwordM: '',
       lastnameM: '',
       emailM: '',
-      annonces: []
+      annonces: [],
+      annonceVille: '',
+      annonceAdresse: '',
+      annoncePieces: '',
+      annoncePrix: '',
+      annonceDescription: '',
+      annonceSuperficie: '',
+      annonceCodePostal: ''
     }
   }
 
@@ -113,6 +120,55 @@ export default class Compte extends React.Component {
     console.log(passwordM.target.value)
   }
 
+  updateAnnonceVille = (annonceVille) => {
+    this.setState({
+      annonceVille: annonceVille.target.value
+    });
+    console.log(annonceVille.target.value)
+  }
+
+  updateAnnonceAdresse = (annonceAdresse) => {
+    this.setState({
+      annonceAdresse: annonceAdresse.target.value
+    });
+    console.log(annonceAdresse.target.value)
+  }
+
+  updateAnnoncePieces = (annoncePieces) => {
+    this.setState({
+      annoncePieces: annoncePieces.target.value
+    });
+    console.log(annoncePieces.target.value)
+  }
+
+  updateAnnoncePrix = (annoncePrix) => {
+    this.setState({
+      annoncePrix: annoncePrix.target.value
+    });
+    console.log(annoncePrix.target.value)
+  }
+
+  updateAnnonceDescription = (annonceDescription) => {
+    this.setState({
+      annonceDescription: annonceDescription.target.value
+    });
+    console.log(annonceDescription.target.value)
+  }
+
+  updateAnnonceSuperficie = (annonceSuperficie) => {
+    this.setState({
+      annonceSuperficie: annonceSuperficie.target.value
+    });
+    console.log(annonceSuperficie.target.value)
+  }
+
+  updateAnnonceCodePostal = (annonceCodePostal) => {
+    this.setState({
+      annonceCodePostal: annonceCodePostal.target.value
+    });
+    console.log(annonceCodePostal.target.value)
+  }
+
   Connect = () => {
     fetch(`/api/login?email=${this.state.email}&password=${this.state.password}`)
     .then(res => res.json())
@@ -184,6 +240,19 @@ export default class Compte extends React.Component {
     console.log(id)
   }
 
+  CreateAnnonce = () => {
+    fetch(`/api/createannonce?ville=${this.state.annonceVille}&adresse=${this.state.annonceAdresse}&pieces=${this.state.annoncePieces}&prix=${this.state.annoncePrix}&description=${this.state.annonceDescription}&superficie=${this.state.annonceSuperficie}&idagence=${this.props.agenceId}&iduser=${this.props.userData.iduser}&codepostal=${this.state.annonceCodePostal}`)
+    .then(res => res.json())
+    .then(compte => {
+      if (compte.affectedRows > 0) {
+        console.log(compte)
+        this.CloseModal()
+      } else {
+        alert("Erreur")
+      }
+    })
+  }
+
 render (){
   const { annonces } = this.state
   if (this.state.status === "logout" || this.state.status === "Erreur de login") {
@@ -237,7 +306,7 @@ render (){
         <div className="annonceContain">
           <ul key={this.state.annonces} className="list-group">
             {annonces.map(anc =>
-              <li key={anc.idannonce} className="list-group-item">{anc.adresse} <a href={'/userannonce/' + anc.idannonce + '/' + this.props.userData.iduser} >Modifier</a></li>
+              <li key={anc.idannonce} className="list-group-item">{anc.adresse} <a href={'/userannonce/' + this.props.userData.iduser + '/' + anc.idannonce } >Modifier</a></li>
             )}
             {
               !annonces && (
@@ -246,7 +315,16 @@ render (){
             }
           </ul>
         </div>
-        <button type="button" className="btn btn-primary btnAdd" onClick={null}>Ajouter une annonce</button>
+        <div className='inputControl'>
+        <input type="text" className="form-control textCompte" placeholder="Ville" value={this.state.annonceVille} onChange={this.updateAnnonceVille}></input>
+        <input type="text" className="form-control textCompte" placeholder="Adresse" value={this.state.annonceAdresse} onChange={this.updateAnnonceAdresse}></input>
+        <input type="text" className="form-control textCompte" placeholder="Pieces" value={this.state.annoncePieces} onChange={this.updateAnnoncePieces}></input>
+        <input type="text" className="form-control textCompte" placeholder="Prix" value={this.state.annoncePrix} onChange={this.updateAnnoncePrix}></input>
+        <input type="text" className="form-control textCompte" placeholder="Desription" value={this.state.annonceDescription} onChange={this.updateAnnonceDescription}></input>
+        <input type="text" className="form-control textCompte" placeholder="Superficie" value={this.state.annonceSuperficie} onChange={this.updateAnnonceSuperficie}></input>
+        <input type="text" className="form-control textCompte" placeholder="CodePostal" value={this.state.annonceCodePostal} onChange={this.updateAnnonceCodePostal}></input>
+      </div>
+        <button type="button" className="btn btn-primary btnAdd"  onClick={this.CreateAnnonce}>Ajouter une annonce</button>
       </div>
       </>
     );

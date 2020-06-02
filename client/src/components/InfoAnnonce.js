@@ -1,6 +1,7 @@
 import React from 'react';
 import '../components/Components.css';
 import axios from 'axios';
+import { Button } from 'react-bootstrap';
 
 export default class InfoAnnonce extends React.Component {
 
@@ -12,16 +13,19 @@ export default class InfoAnnonce extends React.Component {
       filename: 'Choose File',
       uploadedFile: {},
       message: '',
-      image: []
+      image: [],
+      status: this.props.Status,
     }
   }
 
   componentDidMount() {
       this.getAnnonce();
       this.getImage();
+      console.log(this.props.Status)
   }
 
     onSubmit = async e => {
+      const { match: { params } } = this.props;
     e.preventDefault();
     const formData = new FormData();
     formData.append('file', this.state.file);
@@ -39,7 +43,7 @@ export default class InfoAnnonce extends React.Component {
 
       this.setState({message: 'File Uploaded'});
       console.log(filePath)
-      this.uploadImage(this.props.match.params.id, filePath)
+      this.uploadImage(params.id, filePath)
     } catch (err) {
       if (err.response.status === 500) {
         this.setState({message: 'There was a problem with the server'});;
@@ -68,7 +72,8 @@ export default class InfoAnnonce extends React.Component {
   }
 
   getAnnonce = () => {
-    fetch(`/api/annonce?id=${this.props.match.params.id}`)
+    const { match: { params } } = this.props;
+    fetch(`/api/annonce?id=${params.id}`)
     .then(res => res.json())
     .then(list => {
       console.log(list[0])
@@ -81,7 +86,8 @@ export default class InfoAnnonce extends React.Component {
   }
 
   getImage = () => {
-    fetch(`/api/annonceimg?id=${this.props.match.params.id}`)
+    const { match: { params } } = this.props;
+    fetch(`/api/annonceimg?id=${params.id}`)
     .then(res => res.json())
     .then(list => {
       console.log(list)
@@ -110,6 +116,10 @@ export default class InfoAnnonce extends React.Component {
         {this.state.image.map(anc =>
             <img className="img" key={anc.numphoto} src={anc.photo} ></img>
         )}
+      {this.state.status == 'loggedIn'
+        ? <Button title='Favoris' />
+        : null
+      }
     </div>
     </>
     )
