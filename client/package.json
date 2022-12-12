@@ -9,7 +9,7 @@
     "@types/mysql": "^2.15.11",
     "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "mysql": "^2.18.1",
     "rc-slider": "^9.2.4",
     "react": "^16.13.1",
